@@ -1,9 +1,11 @@
 ---
 import { SITE } from "../config";
 
-const base = import.meta.env.BASE_URL; 
+const base = import.meta.env.BASE_URL; // e.g. "/my_website/"
 const path = Astro.url.pathname;
 
+// Strip the base prefix so isActive comparisons work regardless of where
+// the site is deployed.
 const relativePath = path.startsWith(base) ? path.slice(base.length - 1) : path;
 
 const isActive = (prefix: string, exact = false) => {
@@ -11,6 +13,7 @@ const isActive = (prefix: string, exact = false) => {
   return relativePath === prefix || relativePath.startsWith(prefix + "/");
 };
 
+// Builds a full href from a route like "/" or "/projects".
 const href = (route: string) => (route === "/" ? base : `${base}${route.slice(1)}`);
 ---
 
@@ -25,24 +28,15 @@ const href = (route: string) => (route === "/" ? base : `${base}${route.slice(1)
     </div>
 
     <nav class="nav" aria-label="Primary">
-      <a href={href("/")} class={isActive("/", true) ? "active" : ""}>home</a>
-      <a href={href("/projects")} class={isActive("/projects") ? "active" : ""}>projects</a>
-      <a href={href("/blog")} class={isActive("/blog") ? "active" : ""}>blog</a>
-      <a href={href("/about")} class={isActive("/about") ? "active" : ""}>about</a>
+      <a href={href("/")} class={isActive("/", true) ? "active" : ""}>Home</a>
+      <a href={href("/projects")} class={isActive("/projects") ? "active" : ""}>Projects</a>
+      <a href={href("/blog")} class={isActive("/blog") ? "active" : ""}>Blog</a>
+      <a href={href("/about")} class={isActive("/about") ? "active" : ""}>About</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span id="theme-icon" aria-hidden="true"></span>
+        <span id="theme-label"></span>
+      </button>
     </nav>
-  </div>
-
-  <div class="aside__footer">
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-      <span id="theme-icon" aria-hidden="true"></span>
-      <span id="theme-label"></span>
-    </button>
-    <div class="social">
-      <a href={SITE.github} rel="me">GitHub</a>
-      <a href={SITE.linkedin} rel="me">LinkedIn</a>
-      <a href={SITE.X} rel="me">X</a>
-      <a href={`mailto:${SITE.email}`}>Email</a>
-    </div>
   </div>
 </aside>
 

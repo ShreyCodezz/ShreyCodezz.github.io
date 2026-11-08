@@ -1,5 +1,5 @@
 ---
-title: "ai orchestrator economy"
+title: "AI Orchestrator Economy"
 description: "what i think workflow of companies will be in future"
 date: 2026-04-14
 tags: ["ai"]

@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Sidebar from "../components/Sidebar.astro";
+import Lycanroc from "../components/Lycanroc.astro";
 import { SITE } from "../config";
 import "katex/dist/katex.min.css";
 
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const { title, description = SITE.description } = Astro.props;
-const base = import.meta.env.BASE_URL; 
+const base = import.meta.env.BASE_URL; // e.g. "/my_website/"
 ---
 
 <!doctype html>
@@ -19,7 +20,7 @@ const base = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/jpeg" href={`${base}dp.jpg`} />
+    <link rel="icon" type="image/jpeg" href={`${base}pfp.jpeg?v=1`} />
     <title>{title ? `${title} — ${SITE.title}` : SITE.title}</title>
     <script is:inline>
       (function () {
@@ -37,5 +38,6 @@ const base = import.meta.env.BASE_URL;
         <slot />
       </main>
     </div>
+    <Lycanroc />
   </body>
 </html>

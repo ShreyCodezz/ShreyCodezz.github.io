@@ -1,5 +1,5 @@
 ---
-title: "why i'm aiming for quant finance"
+title: "Why I'm Aiming for Quant Finance"
 description: "notes on why I picked this path, and what I'm doing about it before I've even started year one."
 date: 2026-08-01
 tags: ["quant", "career"]

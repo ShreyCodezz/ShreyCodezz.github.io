@@ -1,5 +1,5 @@
 ---
-title: "focus-cli"
+title: "Focus CLI"
 description: "a productivity tool"
 date: 2026-06-09
 tags: ["Python"]

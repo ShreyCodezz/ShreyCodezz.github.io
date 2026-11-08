@@ -1,5 +1,5 @@
 ---
-title: "what i learned from strang"
+title: "What I Learned from Strang"
 description: "learnings from linear algebra by gilbert strang"
 date: "2026-08-11"
 tags: ["maths"]
@@ -473,3 +473,5 @@ $$
 This will become important later when working with vectors, inner products, symmetric matrices, and many other ideas in linear algebra.
 
 And that's where Chapter 1 — Matrices and Gaussian Elimination comes to an end.
+
+For Chapter-2 --> [Vector_Spaces](linear_algebra/vector-spaces.md)

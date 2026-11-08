@@ -1,5 +1,5 @@
 ---
-title: "school was just a phase"
+title: "School Was Just a Phase"
 description: "what i think about school"
 date: 2026-04-18
 tags: ["life"]

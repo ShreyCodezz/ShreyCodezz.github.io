@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const base = import.meta.env.BASE_URL; 
+const base = import.meta.env.BASE_URL; // e.g. "/my_website/"
 ---
 
 <Base title={project.data.title} description={project.data.description}>

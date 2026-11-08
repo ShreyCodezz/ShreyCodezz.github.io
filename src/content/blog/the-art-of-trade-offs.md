@@ -1,7 +1,7 @@
 ---
-title: "the art of trade offs"
+title: "The Art of Trade-Offs"
 description: "what i think about of how trade offs works in the world"
-date: 2026-11-06
+date: 2026-10-10
 tags: ["economics"]
 --- 
 
