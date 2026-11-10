@@ -1,0 +1,59 @@
+---
+import { SITE } from "../config";
+
+const base = import.meta.env.BASE_URL;
+const path = Astro.url.pathname;
+
+// Strip the base prefix so isActive comparisons work regardless of where
+// the site is deployed.
+const relativePath = path.startsWith(base) ? path.slice(base.length - 1) : path;
+
+const isActive = (prefix: string, exact = false) => {
+  if (exact) return relativePath === prefix;
+  return relativePath === prefix || relativePath.startsWith(prefix + "/");
+};
+
+// Builds a full href from a route like "/" or "/projects".
+const href = (route: string) => (route === "/" ? base : `${base}${route.slice(1)}`);
+---
+
+<aside class="layout__aside">
+  <div>
+    <div class="profile">
+      <img src={`${base}dp.jpg`} alt={`${SITE.author} avatar`} class="profile__avatar" width="72" height="72" />
+      <a href={base} class="brand">
+        {SITE.author}
+        <span class="brand__sub">IISER Bhopal</span>
+      </a>
+    </div>
+
+    <nav class="nav" aria-label="Primary">
+      <a href={href("/")} class={isActive("/", true) ? "active" : ""}>Home</a>
+      <a href={href("/projects")} class={isActive("/projects") ? "active" : ""}>Projects</a>
+      <a href={href("/blog")} class={isActive("/blog") ? "active" : ""}>Blog</a>
+      <a href={href("/about")} class={isActive("/about") ? "active" : ""}>About</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <span id="theme-icon" aria-hidden="true"></span>
+        <span id="theme-label"></span>
+      </button>
+    </nav>
+  </div>
+</aside>
+
+<script is:inline>
+  (function () {
+    const root = document.documentElement;
+    document
+      .getElementById("theme-toggle")
+      ?.addEventListener("click", function () {
+        const current =
+          root.getAttribute("data-theme") ??
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        const next = current === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      });
+  })();
+</script>

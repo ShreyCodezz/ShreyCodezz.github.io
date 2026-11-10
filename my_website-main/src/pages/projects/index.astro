@@ -1,0 +1,44 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { slugify } from "../../lib/slugify";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="Projects">
+  <h1>Projects</h1>
+  <p class="lede">A collection of tools and experiments I've built while exploring code, maths, and the things I find interesting. Each project has a little about what it does and how it came together.</p>
+
+  {projects.length === 0 ? (
+    <p class="muted">Nothing here yet.</p>
+  ) : (
+    <ul class="project-grid">
+      {projects.map((p) => (
+        <li class="project-card">
+          <div class="project-card__topline">
+            <span class="project-card__label">Project</span>
+            <span class="entry__date">
+              {p.data.date.toLocaleDateString("en-IN", { year: "numeric", month: "short" })}
+            </span>
+          </div>
+          <h2><a href={`${base}projects/${p.id}/`}>{p.data.title}<span aria-hidden="true"> ↗</span></a></h2>
+          <p class="entry__desc">{p.data.description}</p>
+          {p.data.tags.length > 0 && (
+            <div class="entry__meta">
+              {p.data.tags.map((t) => <a href={`${base}projects/tags/${slugify(t)}/`} class="tag">{t}</a>)}
+            </div>
+          )}
+          <div class="project-card__links">
+            <a href={`${base}projects/${p.id}/`}>Read about it <span aria-hidden="true">→</span></a>
+            {p.data.link && <a href={p.data.link} target="_blank" rel="noreferrer">Try it <span aria-hidden="true">↗</span></a>}
+            {p.data.repo && <a href={p.data.repo} target="_blank" rel="noreferrer">Source <span aria-hidden="true">↗</span></a>}
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>

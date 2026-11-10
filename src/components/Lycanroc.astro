@@ -10,15 +10,16 @@
   })();
 </script>
 
-<button class="lycanroc" type="button" data-lycanroc aria-label="Lycanroc companion. Drag to move, or use the arrow keys.">
+<button class="lycanroc" type="button" data-lycanroc aria-label="Charizard companion. Tap for an introduction, drag to move, or use the arrow keys.">
   <img
-    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/745.gif"
+    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/6.gif"
     alt=""
     width="96"
     height="96"
     draggable="false"
   />
-  <span class="lycanroc__hint" aria-hidden="true">drag me</span>
+  <span class="lycanroc__hint" aria-hidden="true">tap for a quick intro · drag to move</span>
+  <span class="lycanroc__intro" aria-hidden="true">I’m Shreyaan’s Pokémon companion! I keep an eye on this little corner of the internet while you explore his projects and writing.</span>
 </button>
 
 <script>
@@ -87,6 +88,8 @@
       pauseRoam();
       companion.dataset.dragging = "true";
       const box = companion.getBoundingClientRect();
+      companion.style.left = `${box.left}px`;
+      companion.style.top = `${box.top}px`;
       startX = event.clientX;
       startY = event.clientY;
       offsetX = event.clientX - box.left;
@@ -103,8 +106,12 @@
     companion.addEventListener("pointerup", () => {
       dragging = false;
       delete companion.dataset.dragging;
-      if (!moved && !motionPreference.matches) roam();
-      else resumeRoam();
+      if (moved) resumeRoam();
+    });
+
+    companion.addEventListener("click", () => {
+      companion.dataset.open = companion.dataset.open === "true" ? "false" : "true";
+      pauseRoam();
     });
 
     companion.addEventListener("pointercancel", () => {
@@ -198,8 +205,7 @@
     touch-action: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    transform: scaleX(var(--facing));
-    transition: left var(--travel-duration, 18s) cubic-bezier(.4,0,.6,1), top var(--travel-duration, 18s) cubic-bezier(.4,0,.6,1), transform .2s ease;
+    transition: left var(--travel-duration, 18s) cubic-bezier(.4,0,.6,1), top var(--travel-duration, 18s) cubic-bezier(.4,0,.6,1);
     filter: drop-shadow(0 5px 8px rgb(0 0 0 / 18%));
   }
 
@@ -210,6 +216,8 @@
     object-fit: contain;
     image-rendering: pixelated;
     pointer-events: none;
+    transform: scaleX(var(--facing));
+    transition: transform .2s ease;
   }
 
   .lycanroc:hover img { animation: lycanroc-bob .5s ease-in-out infinite alternate; }
@@ -227,13 +235,39 @@
     color: var(--muted);
     font: 10px/1.2 var(--font-sans);
     opacity: 0;
-    transform: translateX(-50%) translateY(4px) scaleX(var(--facing));
+    transform: translateX(-50%) translateY(4px);
     transition: opacity .18s ease, transform .18s ease;
     pointer-events: none;
   }
 
   .lycanroc:hover .lycanroc__hint,
-  .lycanroc:focus-visible .lycanroc__hint { opacity: 1; transform: translateX(-50%) translateY(0) scaleX(var(--facing)); }
+  .lycanroc:focus-visible .lycanroc__hint { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .lycanroc__intro {
+    position: absolute;
+    right: calc(100% + .7rem);
+    bottom: 0;
+    width: min(18rem, calc(100vw - 5rem));
+    padding: .8rem .95rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    color: var(--fg);
+    box-shadow: 0 8px 28px rgb(0 0 0 / 14%);
+    font: .78rem/1.5 var(--font-sans);
+    text-align: left;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity .18s ease, transform .18s ease, visibility .18s;
+    pointer-events: none;
+  }
+
+  .lycanroc[data-open="true"] .lycanroc__intro {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 
   @keyframes lycanroc-bob {
     from { transform: translateY(0); }

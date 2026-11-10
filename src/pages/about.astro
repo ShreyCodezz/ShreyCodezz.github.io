@@ -3,41 +3,68 @@ import Base from "../layouts/Base.astro";
 import { SITE } from "../config";
 
 const base = import.meta.env.BASE_URL;
+const foundations = [
+  "Mathematics and linear algebra",
+  "Statistics and machine learning",
+  "Python and scientific computing",
+];
 ---
 
 <Base title="About">
-  <div class="about-head">
-    <img src={`${base}dp.jpg`} alt={SITE.author} class="about-head__avatar" width="96" height="96" />
-    <h1>About</h1>
-  </div>
-  <p class="lede">A few things about me.</p>
+  <header class="about-hero">
+    <img src={`${base}dp.jpg`} alt={`${SITE.author} portrait`} width="88" height="88" />
+    <div>
+      <p class="about-eyebrow">Economics · Mathematics · Computing</p>
+      <h1>Hi, I’m Shreyaan.</h1>
+      <p class="about-role">Student at IISER Bhopal</p>
+    </div>
+  </header>
 
-  <div class="prose">
-    <p>
-      I'm <strong>Shreyaan Bhat</strong>, starting my undergraduate studies in
-      <strong> Economic Sciences</strong> at <strong> IISER Bhopal</strong> in
-      2026.
-    </p>
+  <section class="about-section about-intro">
+    <h2>About me</h2>
+    <p>I’m exploring the connections between mathematics, economics, statistics, and software. I enjoy understanding the ideas behind a subject, then using code and small projects to make them tangible.</p>
+  </section>
 
-    <p>
-    I build, I learn, and I share. I have a lot of interest in maths not just problem solving but also the concepts and theory
-    behind it. I have liked coding and tinkering with my pc since i was 12 years old and still do it.
-    </p>
-
-    <h2>currently</h2>
-    <ul>
-      <li>i am learning linear algebra (book) by gilbert strang </li>
-      <li>building small projects</li>
-      <li>trying to stay consistent</li>
+  <section class="about-section">
+    <div class="about-section__heading">
+      <div><p class="section-kicker">Building my foundations</p><h2>What I’m learning</h2></div>
+    </div>
+    <ul class="foundation-list">
+      {foundations.map((item, index) => (
+        <li><span class="foundation-number">0{index + 1}</span><span>{item}</span></li>
+      ))}
     </ul>
+  </section>
 
-    <h2>loadout</h2>
-    <ul>
-      <li>editor: vscode, neovim</li>
-      <li>os: arch linux+windows </li>
-      <li>languages: python, c++ , sql</li>
-      <li>interests: ai, ml, maths</li>
-    </ul>
+  <div class="about-columns">
+    <section class="about-card">
+      <p class="section-kicker">Right now</p>
+      <h2>Currently</h2>
+      <ul>
+        <li>Learning mathematics for machine learning</li>
+        <li>Building small projects</li>
+        <li>Trying to stay consistent</li>
+      </ul>
+    </section>
 
+    <section class="about-card">
+      <p class="section-kicker">Tools I use</p>
+      <h2>Loadout</h2>
+      <dl class="loadout-list">
+        <div><dt>Editor</dt><dd>VS Code, Neovim</dd></div>
+        <div><dt>OS</dt><dd>Arch Linux, Windows</dd></div>
+        <div><dt>Languages</dt><dd>Python, C, C++, SQL</dd></div>
+        <div><dt>AI tools</dt><dd>Gemini, Codex</dd></div>
+        <div><dt>Interests</dt><dd>AI, ML, maths</dd></div>
+      </dl>
+    </section>
   </div>
+
+  <section class="about-section about-links">
+    <div><p class="section-kicker">Around the web</p><h2>Find me</h2></div>
+    <div class="about-social-links">
+      <a href={SITE.github} target="_blank" rel="me noreferrer"><span>GitHub</span><strong>ShreyCodezz</strong><span aria-hidden="true">↗</span></a>
+      <a href={SITE.X} target="_blank" rel="me noreferrer"><span>X</span><strong>Shreyaan</strong><span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 </Base>

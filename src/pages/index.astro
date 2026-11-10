@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 import { SITE } from "../config";
 import { getCollection } from "astro:content";
 
-const base = import.meta.env.BASE_URL; // e.g. "/my_website/"
+const base = import.meta.env.BASE_URL;
 const projects = (await getCollection("projects"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
@@ -25,8 +25,10 @@ const posts = (await getCollection("blog"))
     <div class="hero__intro-row">
       <img src={`${base}pfp.jpeg`} alt={SITE.author} class="hero__portrait" width="120" height="120" />
       <p class="intro">
-        I study Economic Sciences at IISER Bhopal. I like working through hard
-        ideas in maths and economics, then using code to make them concrete.
+        I'm Shreyaan, an incoming Economic Sciences student at IISER Bhopal.
+        I like working through hard ideas in maths and economics, then using
+        code to make them concrete. This is where I share what I'm learning
+        and the small things I'm building along the way.
       </p>
     </div>
 
